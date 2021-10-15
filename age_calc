@@ -1,0 +1,11 @@
+proc sql;
+create table currmbrskids as
+select memberid, beginenroll, endenroll, dob, sex,
+round(('01DEC2011'd-DOB)/365.25,.01) as age,
+intck("YEAR", DOB, '01DEC2011'd, "CONTINUOUS") as age
+from adminhc.members
+where endenroll >= '01DEC2011'd
+and calculated age <= 6
+;
+run;
+quit;
